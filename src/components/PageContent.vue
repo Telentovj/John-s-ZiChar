@@ -19,13 +19,11 @@
 <script>
 import QuantityCounter from './QuantityCounter.vue'
 import Basket from './Basket.vue'
+import db from "../firebase.js"
 
 export default {  
   name: 'PageContent',
   components:{QuantityCounter, Basket},
-  props: {
-    foodItems: Array
-  },
   methods:{
     onCounter: function (item, count) {
       if (this.itemsSelected.length === 0 && count > 0) {
@@ -56,12 +54,24 @@ export default {
           }
           // otherwise, if the item is not in itemSelected, add it to itemsSelected by pushing the ORDER in.
         }
+      },
+      fetchItems: function(){
+        db.collection('menu').get().then(snapshot =>{
+          snapshot.docs.forEach(doc =>{
+            items.push(doc); //push items into array here
+            console.log(doc.data());
+          })
+        })
       }
   },
   data(){
     return{
+      items:[],
       itemsSelected:[],
     }
+  },
+  created(){
+      this.fetchItems();
   }
 }
 </script>
