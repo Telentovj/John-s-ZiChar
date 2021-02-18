@@ -6,13 +6,15 @@
             <p>{{item[0]+ " x " + item[1]}}</p>
         </li>
       </ul> 
-      <button v-on:click='show()' class="btn">Calculate Total</button>
+      <button v-on:click='show(), sendOrder()' class="btn">Calculate Total</button>
       <p v-show="clicked">{{"Subtotal: $"  + total}}</p>
       <p v-show="clicked">{{"Grant Total: $" + totalGST}}</p>
   </div>
 </template>
 
 <script>
+import db from "../firebase.js";
+
 export default {
     name:"Basket",
     props:{
@@ -37,6 +39,7 @@ export default {
     data(){
       return{
         clicked: false,
+        order: [],
       }
     },
     methods:{
@@ -44,6 +47,18 @@ export default {
         if(this.itemsSelected.length != 0){
           this.clicked = true;
         }
+      },
+      sendOrder: function(){
+        this.order.splice(0);
+        for(let i = 0; i < this.itemsSelected.length;i++){
+          this.order.push(this.itemsSelected[i][0]);
+          this.order.push(this.itemsSelected[i][1]);
+        }
+        db.collection('orders').add({
+          orders: this.order
+        }).then(() =>{
+          location.reload();
+        })
       }
     }
 }

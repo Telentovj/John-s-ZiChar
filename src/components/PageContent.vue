@@ -3,7 +3,7 @@
       <p class = "header">John's Zi Char</p>
       <div class = "container">
         <ul class="ul">
-          <li class = "li" v-for="item in foodItems" :key="item.id">
+          <li class = "li" v-for="item in this.items" :key="item.id">
               <b>{{item.name}}<br/></b>
               <img :src="item.imageURL"/>
               <p>{{"$" + item.price}}</p>
@@ -58,8 +58,7 @@ export default {
       fetchItems: function(){
         db.collection('menu').get().then(snapshot =>{
           snapshot.docs.forEach(doc =>{
-            items.push(doc); //push items into array here
-            console.log(doc.data());
+            this.items.push(doc.data()); //push items into array here
           })
         })
       }
