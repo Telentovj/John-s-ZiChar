@@ -1,9 +1,8 @@
-import Home from './components/Home.vue'
-import Shop from './components/Shop.vue'
-import Login from './components/Login.vue'
-
+import PageContent from './components/PageContent.vue'
+import Orders from './components/Orders.vue'
+import Modify from './components/Modify.vue'
 export default [
-  { path: '/', component: Home },
-  { path: '/shop', component: Shop },
-  { path: '/login', component: Login }
+  { name: "Home", path: '/', component: PageContent },
+  { name: "Orders", path: '/orders', component: Orders },
+  { name: "Modify", path: '/modify', component: Modify, props:'true'},
 ]

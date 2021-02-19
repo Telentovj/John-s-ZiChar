@@ -1,9 +1,13 @@
 <template>
   <div>
       <p class = "header">John's Zi Char</p>
+        <ul>
+            <router-link to="/" class="routes">Home</router-link>
+            <router-link to="/orders" class="routes">Orders</router-link>
+        </ul>
       <div class = "container">
-        <ul class="ul">
-          <li class = "li" v-for="item in this.items" :key="item.id">
+        <ul class="customul">
+          <li class = "customli" v-for="item in this.items" :key="item.id">
               <b>{{item.name}}<br/></b>
               <img :src="item.imageURL"/>
               <p>{{"$" + item.price}}</p>
@@ -13,7 +17,6 @@
           <Basket class = "basket" v-bind:itemsSelected="itemsSelected"/>    
       </div>
   </div>
-  
 </template>
 
 <script>
@@ -100,14 +103,14 @@ b{
   padding: 0 5px;
   box-sizing: border-box;
 }
-.ul {
+.customul {
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
   padding: 0;
-  width:70%;
+  width:80%;
 }
-.li {
+.customli {
   flex-grow: 1;
   flex-basis: 300px;
   text-align: center;
@@ -133,4 +136,31 @@ img {
   top: 23%;
   left: 78%;
 }
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  flex-grow: 1;
+  flex-basis: 300px;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #222;
+  margin: 10px;
+}
+
+.routes {
+  display: block;
+  max-width: 50%;
+  flex-grow: 1;
+  flex-basis: 300px;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #222;
+  margin: 10px;
+}
+
 </style>

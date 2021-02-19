@@ -1,8 +1,8 @@
 <template>
   <div>
       <p class = "headerMenu">Menu :</p>
-      <ul>
-        <li v-for="item in itemsSelected" :key="item.id">
+      <ul class = "basketul">
+        <li class = "basketli" v-for="item in itemsSelected" :key="item.id">
             <p>{{item[0]+ " x " + item[1]}}</p>
         </li>
       </ul> 
@@ -51,8 +51,7 @@ export default {
       sendOrder: function(){
         this.order.splice(0);
         for(let i = 0; i < this.itemsSelected.length;i++){
-          this.order.push(this.itemsSelected[i][0]);
-          this.order.push(this.itemsSelected[i][1]);
+          this.order.push(this.itemsSelected[i][0] + ": " + this.itemsSelected[i][1]);
         }
         db.collection('orders').add({
           orders: this.order
@@ -69,7 +68,14 @@ export default {
     font-size: 36px;
     padding: 10px;
   }
-  li{
+  .basketli{
     font-size: 24px;
+    flex-grow: 1;
+    flex-basis: 300px;
+    text-align: left;
+    padding: 0px;
+    border: 0px solid #222;
+    margin: 0px;
   }
+
 </style>
