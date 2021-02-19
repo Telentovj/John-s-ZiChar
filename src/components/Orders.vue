@@ -1,16 +1,16 @@
 <template>
     <div>
         <p class = "header">John's Zi Char</p>
-        <ul>
+        <ul class = "ul">
             <router-link to="/" class="routes">Home</router-link>
             <router-link to="/orders" class="routes">Orders</router-link>
         </ul>
-            <ul>
-                <li  v-for="order in orders" :key="order">
-                    <ul class="foodList">
+            <ul class = "ul">
+                <li class = "li" v-for="order in orders" :key="order">
+                    <ul class="foodList ul">
                         <div class="foodContainer">
                             <div class="foodinnerContainer">
-                                <li class="food" v-for="singleFood in order[1]" :key="singleFood">
+                                <li class="food li" v-for="singleFood in order[1]" :key="singleFood">
                                     <p>{{singleFood}}</p>
                                 </li>
                             </div>
@@ -48,7 +48,6 @@ export default {
         },
         route(event){
             let doc_id = event.target.getAttribute("id");
-            console.log(doc_id);
             this.$router.push({name: 'Modify', params: { id: doc_id }});
         },
     },

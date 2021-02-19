@@ -6,7 +6,7 @@
             <p>{{item[0]+ " x " + item[1]}}</p>
         </li>
       </ul> 
-      <button v-on:click='show(), sendOrder()' class="btn">Calculate Total</button>
+      <button v-on:click='show(), sendOrder()' class="btn">Order</button>
       <p v-show="clicked">{{"Subtotal: $"  + total}}</p>
       <p v-show="clicked">{{"Grant Total: $" + totalGST}}</p>
   </div>
@@ -49,15 +49,19 @@ export default {
         }
       },
       sendOrder: function(){
-        this.order.splice(0);
-        for(let i = 0; i < this.itemsSelected.length;i++){
-          this.order.push(this.itemsSelected[i][0] + ": " + this.itemsSelected[i][1]);
+        if(this.itemsSelected.length == 0){
+          alert("Please select something!");
+        }else{
+          this.order.splice(0);
+          for(let i = 0; i < this.itemsSelected.length;i++){
+            this.order.push(this.itemsSelected[i][0] + ": " + this.itemsSelected[i][1]);
+          }
+          db.collection('orders').add({
+            orders: this.order
+          }).then(() =>{
+            location.reload();
+          })
         }
-        db.collection('orders').add({
-          orders: this.order
-        }).then(() =>{
-          location.reload();
-        })
       }
     }
 }
@@ -71,7 +75,7 @@ export default {
   .basketli{
     font-size: 24px;
     flex-grow: 1;
-    flex-basis: 300px;
+    flex-basis: 400px;
     text-align: left;
     padding: 0px;
     border: 0px solid #222;
