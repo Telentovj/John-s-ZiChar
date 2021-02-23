@@ -45,7 +45,8 @@ export default {
                 if(this.datapacket[i].lastIndexOf("Cereal") != -1){
                     this.cereal = true;
                 }
-                if(this.datapacket[i].lastIndexOf("Prawn") != -1){
+                if(this.datapacket[i].lastIndexOf("Omelette") != -1){
+                    console.log(this.datapacket[i]);
                     this.prawn = true;
                 }
                 if(this.datapacket[i].lastIndexOf("Pork") != -1){
@@ -58,7 +59,7 @@ export default {
                     this.dry = true;
                 }   
             }
-    
+            console.log(this.prawn);
             if(!this.sambal){
                 this.datapacket.push("Sambal KangKong: 0");
             }
