@@ -1,12 +1,13 @@
 <template>
     <div>
         <p class = "header">John's Zi Char</p>
-        <ul class = "ul">
+        <ul class="ul">
             <router-link to="/" class="routes">Home</router-link>
+            <router-link to="/dashboard" class="routes">DashBoard</router-link>
             <router-link to="/orders" class="routes">Orders</router-link>
         </ul>
             <ul class = "ul">
-                <li class = "li" v-for="order in orders" :key="order">
+                <li class = "li" v-for="(order,idx) in orders" :key="idx">
                     <ul class="foodList ul">
                         <div class="foodContainer">
                             <div class="foodinnerContainer">

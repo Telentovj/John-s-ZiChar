@@ -3,6 +3,7 @@
       <p class = "header">John's Zi Char</p>
         <ul class="ul">
             <router-link to="/" class="routes">Home</router-link>
+            <router-link to="/dashboard" class="routes">DashBoard</router-link>
             <router-link to="/orders" class="routes">Orders</router-link>
         </ul>
       <div class = "container">
@@ -23,6 +24,7 @@
 import QuantityCounter from './QuantityCounter.vue'
 import Basket from './Basket.vue'
 import db from "../firebase.js"
+
 
 export default {  
   name: 'PageContent',

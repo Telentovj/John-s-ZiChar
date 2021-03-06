@@ -4,7 +4,7 @@
     <div>
         <li class="food modifyli" v-for="(singleFood, index ) in datapacket" :key="singleFood">
             <p>{{singleFood}}</p>
-            <input v-model="message" placeholder="0" :id = index type ="number" min = "0" >
+            <input placeholder="0" :id = index type ="number" min = "0" max = "10">
         </li>
     </div>
     <button class="updateBtn" v-on:click="updateOrder()">Update Order</button>
@@ -30,10 +30,8 @@ export default {
     },
     methods:{
         fetchItems: function(){
-            console.log(this.id);
             db.collection('orders').doc(this.id).get().then(snapshot =>{
                 this.datapacket = snapshot.data().orders;
-                console.log(this.datapacket);
                 this.parseOrder();
             })
         },
@@ -46,7 +44,6 @@ export default {
                     this.cereal = true;
                 }
                 if(this.datapacket[i].lastIndexOf("Omelette") != -1){
-                    console.log(this.datapacket[i]);
                     this.prawn = true;
                 }
                 if(this.datapacket[i].lastIndexOf("Pork") != -1){
@@ -59,7 +56,7 @@ export default {
                     this.dry = true;
                 }   
             }
-            console.log(this.prawn);
+
             if(!this.sambal){
                 this.datapacket.push("Sambal KangKong: 0");
             }
@@ -78,20 +75,22 @@ export default {
             if(!this.prawn){
                 this.datapacket.push("Prawn Omelette: 0");
             }
-            console.log(this.datapacket);
         },
         updateOrder: function(){
             this.datapacketCopy = [];
             for (let i = 0; i < this.datapacket.length; i++){
                 if(document.getElementById(i).value == ""){
-                    this.datapacketCopy.push(this.datapacket[i].split(":")[0] + " : 0");
+                    continue;
                 }else{
+                    if(parseInt(document.getElementById(i).value) > 10){
+                        break;  
+                    }
                     this.datapacketCopy.push(this.datapacket[i].split(":")[0] + " : " + document.getElementById(i).value);
                     this.updateFlag = true;
                 }
             }
             if(!this.updateFlag){
-                alert("Please order some food!")
+                alert("Either you are not ordering any food or you are ordering more than 10 of a dish! Please modify your order!")
             }else{
                 db.collection('orders').doc(this.id).set({
                     orders: this.datapacketCopy,
